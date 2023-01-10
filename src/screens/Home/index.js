@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, View, Modal } from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
@@ -7,6 +7,8 @@ import colors from "../../styles/colors";
 
 const Home = () => {
 	const [count, setCount] = useState(0);
+	const [target, setTarget] = useState(0);
+	const [openModal, setOpenModal] = useState(false);
 
 	const handlerCount = (change) => {
 		if (change === "reset") {
@@ -30,7 +32,10 @@ const Home = () => {
 						style={styles.circleTally}
 						onPress={() => handlerCount("plus")}
 					>
-						<Text style={styles.count}>{count}</Text>
+						<View style={styles.contentCircleTally}>
+							<Text style={styles.count}>{count}</Text>
+							<Text style={styles.target()}>/{target}</Text>
+						</View>
 					</Pressable>
 
 					<Pressable onPress={() => handlerCount("plus")}>
@@ -44,6 +49,23 @@ const Home = () => {
 					</Pressable>
 				) : null}
 			</View>
+
+			<Modal animationType="slide" transparent={true} visible={openModal}>
+				<View style={styles.centeredModal}>
+					<View style={styles.modal}>
+						<Pressable onPress={() => setOpenModal(!openModal)}>
+							<Text>Fechar</Text>
+						</Pressable>
+					</View>
+				</View>
+			</Modal>
+
+			<Pressable
+				style={styles.btnSetTarget}
+				onPress={() => setOpenModal(!openModal)}
+			>
+				<Text style={styles.btnTextTarget}>Set target</Text>
+			</Pressable>
 		</View>
 	);
 };
