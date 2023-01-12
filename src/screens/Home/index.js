@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { Pressable, Text, View, Modal } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+	Pressable,
+	Text,
+	View,
+	Modal,
+	TextInput,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from "react-native";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
@@ -8,6 +16,7 @@ import colors from "../../styles/colors";
 const Home = () => {
 	const [count, setCount] = useState(0);
 	const [target, setTarget] = useState(0);
+	const [hasTarget, setHasTarget] = useState(!!target);
 	const [openModal, setOpenModal] = useState(false);
 
 	const handlerCount = (change) => {
@@ -19,6 +28,10 @@ const Home = () => {
 				: setCount(count + 1);
 		}
 	};
+
+	useEffect(() => {
+		setHasTarget(!!target);
+	}, [target]);
 
 	return (
 		<View style={styles.container}>
@@ -34,7 +47,7 @@ const Home = () => {
 					>
 						<View style={styles.contentCircleTally}>
 							<Text style={styles.count}>{count}</Text>
-							<Text style={styles.target()}>/{target}</Text>
+							<Text style={styles.target(hasTarget)}>/{target}</Text>
 						</View>
 					</Pressable>
 
@@ -50,21 +63,42 @@ const Home = () => {
 				) : null}
 			</View>
 
-			<Modal animationType="slide" transparent={true} visible={openModal}>
-				<View style={styles.centeredModal}>
-					<View style={styles.modal}>
-						<Pressable onPress={() => setOpenModal(!openModal)}>
-							<Text>Fechar</Text>
-						</Pressable>
+			<Modal animationType="fade" transparent={true} visible={openModal}>
+				<TouchableWithoutFeedback
+					onPress={() => {
+						Keyboard.dismiss();
+						setOpenModal(!openModal);
+					}}
+				>
+					<View style={styles.centeredModal}>
+						<View style={styles.modal}>
+							<Text style={styles.titleModal}>Set Target</Text>
+							<TextInput
+								autoFocus={true}
+								cursorColor={colors.primary}
+								keyboardType="numeric"
+								style={styles.inputTarget}
+								value={target}
+								defaultValue={target}
+								onChangeText={setTarget}
+								placeholder="Enter value"
+								placeholderTextColor={colors.gray}
+								onSubmitEditing={() => {
+									Keyboard.dismiss();
+									setOpenModal(!openModal);
+								}}
+							/>
+						</View>
 					</View>
-				</View>
+				</TouchableWithoutFeedback>
 			</Modal>
 
 			<Pressable
-				style={styles.btnSetTarget}
-				onPress={() => setOpenModal(!openModal)}
+				onPress={() => {
+					hasTarget ? setTarget(0) : setOpenModal(!openModal);
+				}}
 			>
-				<Text style={styles.btnTextTarget}>Set target</Text>
+				<Text style={styles.btnTextTarget(hasTarget)}>Target</Text>
 			</Pressable>
 		</View>
 	);

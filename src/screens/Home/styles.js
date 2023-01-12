@@ -51,9 +51,9 @@ export const styles = StyleSheet.create({
 		fontFamily: fonts.types.light,
 		fontSize: fonts.sizes.large,
 	},
-	target: function () {
+	target: function (hasTarget) {
 		return {
-			display: "none",
+			display: hasTarget ? "flex" : "none",
 			color: colors.gray,
 			marginBottom: 10,
 			fontFamily: fonts.types.regular,
@@ -70,8 +70,36 @@ export const styles = StyleSheet.create({
 	},
 	modal: {
 		width: "80%",
-		padding: 12,
+		height: 130,
+		borderRadius: 12,
+		padding: 16,
 		position: "relative",
 		backgroundColor: colors.bgDarkBox,
+		justifyContent: "space-between",
+	},
+	titleModal: {
+		fontSize: fonts.sizes.subtitle,
+		color: colors.primary,
+		fontFamily: fonts.types.regular,
+	},
+	inputTarget: {
+		color: colors.light,
+		textAlignVertical: "top",
+		marginBottom: 5,
+		borderBottomWidth: 1,
+		borderBottomColor: colors.primary,
+	},
+	btnTextTarget: function (hasTarget) {
+		return {
+			fontSize: fonts.sizes.text,
+			fontFamily: fonts.types.regular,
+			color: hasTarget ? colors.light : colors.primary,
+			textDecorationLine: "underline",
+			alignSelf: "flex-end",
+			backgroundColor: hasTarget ? "#5d9ff4" : colors.secondary,
+			padding: 12,
+			marginTop: 80,
+			borderRadius: 30,
+		};
 	},
 });
