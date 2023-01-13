@@ -16,8 +16,9 @@ import colors from "../../styles/colors";
 const Home = () => {
 	const [count, setCount] = useState(0);
 	const [target, setTarget] = useState(0);
-	const [hasTarget, setHasTarget] = useState(!!target);
 	const [openModal, setOpenModal] = useState(false);
+	const [textColorCount, setTextColorCount] = useState(colors.primary);
+	const [borderColorCircle, setBorderColorCircle] = useState(undefined);
 
 	const handlerCount = (change) => {
 		if (change === "reset") {
@@ -30,8 +31,22 @@ const Home = () => {
 	};
 
 	useEffect(() => {
-		setHasTarget(!!target);
-	}, [target]);
+		if (target) {
+			if (count > target) {
+				setTextColorCount(colors.red);
+				setBorderColorCircle(colors.red);
+			} else if (count == target) {
+				setTextColorCount(colors.blue);
+				setBorderColorCircle(colors.blue);
+			} else {
+				setTextColorCount(colors.primary);
+				setBorderColorCircle(undefined);
+			}
+		} else {
+			setTextColorCount(colors.primary);
+			setBorderColorCircle(undefined);
+		}
+	}, [count, target]);
 
 	return (
 		<View style={styles.container}>
@@ -42,12 +57,12 @@ const Home = () => {
 					</Pressable>
 
 					<Pressable
-						style={styles.circleTally}
+						style={styles.circleTally(borderColorCircle)}
 						onPress={() => handlerCount("plus")}
 					>
 						<View style={styles.contentCircleTally}>
-							<Text style={styles.count}>{count}</Text>
-							<Text style={styles.target(hasTarget)}>/{target}</Text>
+							<Text style={styles.count(textColorCount)}>{count}</Text>
+							<Text style={styles.target(target)}>/{target}</Text>
 						</View>
 					</Pressable>
 
@@ -95,10 +110,10 @@ const Home = () => {
 
 			<Pressable
 				onPress={() => {
-					hasTarget ? setTarget(0) : setOpenModal(!openModal);
+					target ? setTarget(0) : setOpenModal(!openModal);
 				}}
 			>
-				<Text style={styles.btnTextTarget(hasTarget)}>Target</Text>
+				<Text style={styles.btnTextTarget(target)}>Target</Text>
 			</Pressable>
 		</View>
 	);

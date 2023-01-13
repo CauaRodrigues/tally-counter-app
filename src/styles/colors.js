@@ -10,6 +10,7 @@ const colors = {
 	dividerYellow: "#F7C622",
 	red: "#DE1818",
 	redSecondary: "#D24B4B",
+	blue: "#5d9ff4",
 };
 
 export default colors;

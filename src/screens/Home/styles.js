@@ -32,24 +32,30 @@ export const styles = StyleSheet.create({
 		shadowRadius: 4.65,
 		elevation: 8,
 	},
-	circleTally: {
-		width: 120,
-		height: 120,
-		alignItems: "center",
-		justifyContent: "center",
-		flexDirection: "row",
-		backgroundColor: colors.bgDark,
-		borderRadius: 60,
+	circleTally: function (outlineColor) {
+		return {
+			width: 120,
+			height: 120,
+			alignItems: "center",
+			justifyContent: "center",
+			flexDirection: "row",
+			backgroundColor: colors.bgDark,
+			borderRadius: 60,
+			borderWidth: outlineColor ? 2 : 0,
+			borderColor: outlineColor,
+		};
 	},
 	contentCircleTally: {
 		alignItems: "flex-end",
 		justifyContent: "center",
 		flexDirection: "row",
 	},
-	count: {
-		color: colors.primary,
-		fontFamily: fonts.types.light,
-		fontSize: fonts.sizes.large,
+	count: function (colorText) {
+		return {
+			color: colorText,
+			fontFamily: fonts.types.light,
+			fontSize: fonts.sizes.large,
+		};
 	},
 	target: function (hasTarget) {
 		return {
@@ -96,7 +102,7 @@ export const styles = StyleSheet.create({
 			color: hasTarget ? colors.light : colors.primary,
 			textDecorationLine: "underline",
 			alignSelf: "flex-end",
-			backgroundColor: hasTarget ? "#5d9ff4" : colors.secondary,
+			backgroundColor: hasTarget ? colors.blue : colors.secondary,
 			padding: 12,
 			marginTop: 80,
 			borderRadius: 30,
