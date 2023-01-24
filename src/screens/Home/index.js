@@ -21,7 +21,7 @@ const Home = () => {
 	const [target, setTarget] = useState(0);
 	const [openModal, setOpenModal] = useState(false);
 	const [textColorCount, setTextColorCount] = useState(
-		theme === "dark" ? colors.darkMode.main : colors.lightMode.yellow
+		theme === "dark" ? colors.darkMode.yellow : colors.lightMode.yellow
 	);
 	const [borderColorCircle, setBorderColorCircle] = useState(undefined);
 
@@ -30,8 +30,8 @@ const Home = () => {
 			setCount(0);
 		} else {
 			change === "less"
-				? setCount(count ? count - 1 : count)
-				: setCount(count + 1);
+				? setCount((prevState) => (prevState ? prevState - 1 : prevState))
+				: setCount((prevState) => prevState + 1);
 		}
 	};
 
@@ -55,7 +55,7 @@ const Home = () => {
 			);
 			setBorderColorCircle(undefined);
 		}
-	}, [count, target]);
+	}, [count, target, theme]);
 
 	return (
 		<View style={styles.container}>
@@ -103,7 +103,7 @@ const Home = () => {
 							size={40}
 							color={
 								theme === "dark"
-									? colors.darkMode.main
+									? colors.darkMode.yellow
 									: colors.lightMode.yellow
 							}
 						/>
