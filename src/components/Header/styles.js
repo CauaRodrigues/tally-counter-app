@@ -10,10 +10,15 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: colors.backgroundColor,
 	},
-	titleApp: {
-		textAlign: "center",
-		color: colors.primary,
-		fontSize: fonts.sizes.title,
-		fontFamily: fonts.types.bold,
+	titleApp: function (colorScheme) {
+		return {
+			textAlign: "center",
+			color:
+				colorScheme === "dark"
+					? colors.darkMode.yellow
+					: colors.lightMode.yellow,
+			fontSize: fonts.sizes.title,
+			fontFamily: fonts.types.bold,
+		};
 	},
 });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	Pressable,
 	Text,
@@ -12,12 +12,17 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 import colors from "../../styles/colors";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Home = () => {
+	const { theme } = useContext(ThemeContext);
+
 	const [count, setCount] = useState(0);
 	const [target, setTarget] = useState(0);
 	const [openModal, setOpenModal] = useState(false);
-	const [textColorCount, setTextColorCount] = useState(colors.primary);
+	const [textColorCount, setTextColorCount] = useState(
+		theme === "dark" ? colors.darkMode.main : colors.lightMode.yellow
+	);
 	const [borderColorCircle, setBorderColorCircle] = useState(undefined);
 
 	const handlerCount = (change) => {
@@ -33,17 +38,21 @@ const Home = () => {
 	useEffect(() => {
 		if (target) {
 			if (count > target) {
-				setTextColorCount(colors.red);
-				setBorderColorCircle(colors.red);
+				setTextColorCount(colors.common.red);
+				setBorderColorCircle(colors.common.red);
 			} else if (count == target) {
-				setTextColorCount(colors.blue);
-				setBorderColorCircle(colors.blue);
+				setTextColorCount(colors.common.blue);
+				setBorderColorCircle(colors.common.blue);
 			} else {
-				setTextColorCount(colors.primary);
+				setTextColorCount(
+					theme === "dark" ? colors.darkMode.yellow : colors.lightMode.yellow
+				);
 				setBorderColorCircle(undefined);
 			}
 		} else {
-			setTextColorCount(colors.primary);
+			setTextColorCount(
+				theme === "dark" ? colors.darkMode.yellow : colors.lightMode.yellow
+			);
 			setBorderColorCircle(undefined);
 		}
 	}, [count, target]);
@@ -51,13 +60,21 @@ const Home = () => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.box}>
-				<View style={styles.tallyCounter}>
+				<View style={styles.tallyCounter(theme)}>
 					<Pressable onPress={() => handlerCount("less")}>
-						<AntDesign name="minus" size={40} color={colors.primary} />
+						<AntDesign
+							name="minus"
+							size={40}
+							color={
+								theme === "dark"
+									? colors.darkMode.yellow
+									: colors.lightMode.yellow
+							}
+						/>
 					</Pressable>
 
 					<Pressable
-						style={styles.circleTally(borderColorCircle)}
+						style={styles.circleTally(borderColorCircle, theme)}
 						onPress={() => handlerCount("plus")}
 					>
 						<View style={styles.contentCircleTally}>
@@ -67,13 +84,29 @@ const Home = () => {
 					</Pressable>
 
 					<Pressable onPress={() => handlerCount("plus")}>
-						<AntDesign name="plus" size={40} color={colors.primary} />
+						<AntDesign
+							name="plus"
+							size={40}
+							color={
+								theme === "dark"
+									? colors.darkMode.yellow
+									: colors.lightMode.yellow
+							}
+						/>
 					</Pressable>
 				</View>
 
 				{count ? (
 					<Pressable onPress={() => handlerCount("reset")}>
-						<MaterialIcons name="replay" size={40} color={colors.primary} />
+						<MaterialIcons
+							name="replay"
+							size={40}
+							color={
+								theme === "dark"
+									? colors.darkMode.main
+									: colors.lightMode.yellow
+							}
+						/>
 					</Pressable>
 				) : null}
 			</View>
@@ -86,18 +119,22 @@ const Home = () => {
 					}}
 				>
 					<View style={styles.centeredModal}>
-						<View style={styles.modal}>
-							<Text style={styles.titleModal}>Set Target</Text>
+						<View style={styles.modal(theme)}>
+							<Text style={styles.titleModal(theme)}>Definir Meta</Text>
 							<TextInput
 								autoFocus={true}
-								cursorColor={colors.primary}
+								cursorColor={
+									theme === "dark"
+										? colors.darkMode.main
+										: colors.lightMode.yellow
+								}
 								keyboardType="numeric"
-								style={styles.inputTarget}
+								style={styles.inputTarget(theme)}
 								value={target}
 								defaultValue={target}
 								onChangeText={setTarget}
-								placeholder="Enter value"
-								placeholderTextColor={colors.gray}
+								placeholder="Insira um valor"
+								placeholderTextColor={colors.common.gray}
 								onSubmitEditing={() => {
 									Keyboard.dismiss();
 									setOpenModal(!openModal);
@@ -113,7 +150,7 @@ const Home = () => {
 					target ? setTarget(0) : setOpenModal(!openModal);
 				}}
 			>
-				<Text style={styles.btnTextTarget(target)}>Target</Text>
+				<Text style={styles.btnTextTarget(target, theme)}>Definir Meta</Text>
 			</Pressable>
 		</View>
 	);

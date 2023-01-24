@@ -15,31 +15,39 @@ export const styles = StyleSheet.create({
 		alignItems: "center",
 		flexDirection: "column",
 	},
-	tallyCounter: {
-		width: "85%",
-		height: 120,
-		justifyContent: "space-evenly",
-		alignItems: "center",
-		flexDirection: "row",
-		backgroundColor: colors.secondary,
-		borderRadius: 60,
-		shadowColor: colors.black,
-		shadowOffset: {
-			width: 0,
-			height: 0,
-		},
-		shadowOpacity: 0.27,
-		shadowRadius: 4.65,
-		elevation: 8,
+	tallyCounter: function (colorScheme) {
+		return {
+			width: "85%",
+			height: 120,
+			justifyContent: "space-evenly",
+			alignItems: "center",
+			flexDirection: "row",
+			backgroundColor:
+				colorScheme === "dark"
+					? colors.darkMode.darkness
+					: colors.lightMode.lightness,
+			borderRadius: 60,
+			shadowColor: colors.common.black,
+			shadowOffset: {
+				width: 0,
+				height: 0,
+			},
+			shadowOpacity: 0.27,
+			shadowRadius: 4.65,
+			elevation: 8,
+		};
 	},
-	circleTally: function (outlineColor) {
+	circleTally: function (outlineColor, colorScheme) {
 		return {
 			width: 120,
 			height: 120,
 			alignItems: "center",
 			justifyContent: "center",
 			flexDirection: "row",
-			backgroundColor: colors.bgDark,
+			backgroundColor:
+				colorScheme === "dark"
+					? colors.darkMode.main
+					: colors.lightMode.lightYellow,
 			borderRadius: 60,
 			borderWidth: outlineColor ? 2 : 0,
 			borderColor: outlineColor,
@@ -60,7 +68,7 @@ export const styles = StyleSheet.create({
 	target: function (hasTarget) {
 		return {
 			display: hasTarget ? "flex" : "none",
-			color: colors.gray,
+			color: colors.common.gray,
 			marginBottom: 10,
 			fontFamily: fonts.types.regular,
 			fontSize: fonts.sizes.subtitle,
@@ -74,35 +82,58 @@ export const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	modal: {
-		width: "80%",
-		height: 130,
-		borderRadius: 12,
-		padding: 16,
-		position: "relative",
-		backgroundColor: colors.bgDarkBox,
-		justifyContent: "space-between",
+	modal: function (colorScheme) {
+		return {
+			width: "80%",
+			height: 130,
+			borderRadius: 12,
+			padding: 16,
+			position: "relative",
+			backgroundColor:
+				colorScheme === "dark"
+					? colors.darkMode.modalDark
+					: colors.lightMode.main,
+			justifyContent: "space-between",
+		};
 	},
-	titleModal: {
-		fontSize: fonts.sizes.subtitle,
-		color: colors.primary,
-		fontFamily: fonts.types.regular,
+	titleModal: function (colorScheme) {
+		return {
+			fontSize: fonts.sizes.subtitle,
+			color:
+				colorScheme === "dark"
+					? colors.darkMode.yellow
+					: colors.lightMode.yellow,
+			fontFamily: fonts.types.regular,
+		};
 	},
-	inputTarget: {
-		color: colors.light,
-		textAlignVertical: "top",
-		marginBottom: 5,
-		borderBottomWidth: 1,
-		borderBottomColor: colors.primary,
+	inputTarget: function (colorScheme) {
+		return {
+			color: colors.common.light,
+			textAlignVertical: "top",
+			marginBottom: 5,
+			borderBottomWidth: 1,
+			borderBottomColor:
+				colorScheme === "dark"
+					? colors.darkMode.yellow
+					: colors.lightMode.yellow,
+		};
 	},
-	btnTextTarget: function (hasTarget) {
+	btnTextTarget: function (hasTarget, colorScheme) {
 		return {
 			fontSize: fonts.sizes.text,
 			fontFamily: fonts.types.regular,
-			color: hasTarget ? colors.light : colors.primary,
+			color: hasTarget
+				? colors.common.light
+				: colorScheme === "dark"
+				? colors.darkMode.yellow
+				: colors.lightMode.yellow,
 			textDecorationLine: "underline",
 			alignSelf: "flex-end",
-			backgroundColor: hasTarget ? colors.blue : colors.secondary,
+			backgroundColor: hasTarget
+				? colors.common.blue
+				: colorScheme === "dark"
+				? colors.darkMode.darkness
+				: colors.lightMode.lightness,
 			padding: 12,
 			marginTop: 80,
 			borderRadius: 30,

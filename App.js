@@ -1,4 +1,4 @@
-import { StatusBar } from "react-native";
+import { StatusBar, useColorScheme } from "react-native";
 import {
 	useFonts,
 	Roboto_300Light,
@@ -10,6 +10,8 @@ import Background from "./src/components/Background";
 import { Loading } from "./src/components/Loading";
 import colors from "./src/styles/colors";
 import Home from "./src/screens/Home";
+import { ThemeContext } from "./src/context/ThemeContext";
+import { useState } from "react";
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -18,12 +20,24 @@ export default function App() {
 		Roboto_700Bold,
 	});
 
-	return fontsLoaded ? (
-		<Background>
-			<StatusBar barStyle="light-content" backgroundColor={colors.bgDark} />
-			<Home />
-		</Background>
-	) : (
-		<Loading />
+	let userColorScheme = useColorScheme();
+	const [theme, setTheme] = useState(userColorScheme);
+
+	return (
+		<ThemeContext.Provider value={{ theme, setTheme }}>
+			{fontsLoaded ? (
+				<Background>
+					<StatusBar
+						barStyle={`${theme === "dark" ? "light" : "dark"}-content`}
+						backgroundColor={
+							theme === "dark" ? colors.darkMode.main : colors.lightMode.main
+						}
+					/>
+					<Home />
+				</Background>
+			) : (
+				<Loading />
+			)}
+		</ThemeContext.Provider>
 	);
 }
