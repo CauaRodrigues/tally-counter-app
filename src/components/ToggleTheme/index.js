@@ -19,7 +19,9 @@ const ToggleTheme = () => {
 					name="ios-moon"
 					size={26}
 					color={
-						theme === "dark" ? colors.darkMode.yellow : colors.lightMode.yellow
+						theme === "dark"
+							? colors.darkMode.yellow
+							: colors.lightMode.secondary
 					}
 				/>
 			) : (
@@ -27,7 +29,9 @@ const ToggleTheme = () => {
 					name="ios-sunny"
 					size={26}
 					color={
-						theme === "dark" ? colors.darkMode.yellow : colors.lightMode.yellow
+						theme === "dark"
+							? colors.darkMode.yellow
+							: colors.lightMode.secondary
 					}
 				/>
 			)}

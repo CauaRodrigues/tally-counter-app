@@ -10,15 +10,16 @@ export const styles = StyleSheet.create({
 	},
 	box: {
 		width: "100%",
-		height: 180,
 		justifyContent: "space-between",
 		alignItems: "center",
+		zIndex: 0,
 		flexDirection: "column",
 	},
 	tallyCounter: function (colorScheme) {
 		return {
-			width: "85%",
-			height: 120,
+			width: 300,
+			height: 100,
+			marginBottom: 30,
 			justifyContent: "space-evenly",
 			alignItems: "center",
 			flexDirection: "row",
@@ -39,22 +40,21 @@ export const styles = StyleSheet.create({
 	},
 	circleTally: function (outlineColor, colorScheme) {
 		return {
-			width: 120,
-			height: 120,
+			width: 100,
+			height: 100,
+			zIndex: 1000,
 			alignItems: "center",
 			justifyContent: "center",
 			flexDirection: "row",
 			backgroundColor:
-				colorScheme === "dark"
-					? colors.darkMode.main
-					: colors.lightMode.lightYellow,
+				colorScheme === "dark" ? colors.darkMode.main : colors.lightMode.main,
 			borderRadius: 60,
 			borderWidth: outlineColor ? 2 : 0,
 			borderColor: outlineColor,
 		};
 	},
 	contentCircleTally: {
-		alignItems: "flex-end",
+		alignItems: "center",
 		justifyContent: "center",
 		flexDirection: "row",
 	},
@@ -69,7 +69,6 @@ export const styles = StyleSheet.create({
 		return {
 			display: hasTarget ? "flex" : "none",
 			color: colors.common.gray,
-			marginBottom: 10,
 			fontFamily: fonts.types.regular,
 			fontSize: fonts.sizes.subtitle,
 		};
@@ -102,20 +101,20 @@ export const styles = StyleSheet.create({
 			color:
 				colorScheme === "dark"
 					? colors.darkMode.yellow
-					: colors.lightMode.yellow,
+					: colors.lightMode.secondary,
 			fontFamily: fonts.types.regular,
 		};
 	},
 	inputTarget: function (colorScheme) {
 		return {
-			color: colors.common.light,
+			color: colorScheme === "dark" ? colors.common.light : colors.common.black,
 			textAlignVertical: "top",
 			marginBottom: 5,
 			borderBottomWidth: 1,
 			borderBottomColor:
 				colorScheme === "dark"
 					? colors.darkMode.yellow
-					: colors.lightMode.yellow,
+					: colors.lightMode.secondary,
 		};
 	},
 	btnTextTarget: function (hasTarget, colorScheme) {
@@ -126,7 +125,7 @@ export const styles = StyleSheet.create({
 				? colors.common.light
 				: colorScheme === "dark"
 				? colors.darkMode.yellow
-				: colors.lightMode.yellow,
+				: colors.lightMode.secondary,
 			textDecorationLine: "underline",
 			alignSelf: "flex-end",
 			backgroundColor: hasTarget

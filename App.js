@@ -1,4 +1,5 @@
 import { StatusBar, useColorScheme } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
 	useFonts,
 	Roboto_300Light,
@@ -24,20 +25,22 @@ export default function App() {
 	const [theme, setTheme] = useState(userColorScheme);
 
 	return (
-		<ThemeContext.Provider value={{ theme, setTheme }}>
-			{fontsLoaded ? (
-				<Background>
-					<StatusBar
-						barStyle={`${theme === "dark" ? "light" : "dark"}-content`}
-						backgroundColor={
-							theme === "dark" ? colors.darkMode.main : colors.lightMode.main
-						}
-					/>
-					<Home />
-				</Background>
-			) : (
-				<Loading />
-			)}
-		</ThemeContext.Provider>
+		<GestureHandlerRootView style={{ flex: 1 }}>
+			<ThemeContext.Provider value={{ theme, setTheme }}>
+				{fontsLoaded ? (
+					<Background>
+						<StatusBar
+							barStyle={`${theme === "dark" ? "light" : "dark"}-content`}
+							backgroundColor={
+								theme === "dark" ? colors.darkMode.main : colors.lightMode.main
+							}
+						/>
+						<Home />
+					</Background>
+				) : (
+					<Loading />
+				)}
+			</ThemeContext.Provider>
+		</GestureHandlerRootView>
 	);
 }

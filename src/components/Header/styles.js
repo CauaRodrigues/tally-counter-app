@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
 			color:
 				colorScheme === "dark"
 					? colors.darkMode.yellow
-					: colors.lightMode.yellow,
+					: colors.lightMode.secondary,
 			fontSize: fonts.sizes.title,
 			fontFamily: fonts.types.bold,
 		};
