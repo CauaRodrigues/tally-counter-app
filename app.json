@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "tally-counter",
+    "name": "Tally Counter",
     "slug": "tally-counter",
     "version": "1.0.0",
+    "githubUrl": "https://github.com/CauaRodrigues/tally-counter-app",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
